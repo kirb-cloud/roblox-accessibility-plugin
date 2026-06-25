@@ -1,5 +1,8 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local GuiService = game:GetService("GuiService")
 
 local ColorblindModule = require(ReplicatedStorage.AccessibilityModule.ColorblindModule)
 
@@ -208,23 +211,30 @@ for i, mode in ipairs(modes) do
 	end)
 end
 
--- Slider logic (vertical)
+-- Slider logic
 local dragging = false
 
 sliderKnob.MouseButton1Down:Connect(function()
 	dragging = true
 end)
 
-game:GetService("UserInputService").InputEnded:Connect(function(input)
+sliderTrack.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = true
+	end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 then
 		dragging = false
 	end
 end)
 
-game:GetService("RunService").RenderStepped:Connect(function()
+RunService.RenderStepped:Connect(function()
 	if dragging then
-		local mouseY = game:GetService("UserInputService"):GetMouseLocation().Y
-		local trackPos = sliderTrack.AbsolutePosition.Y
+		local mouseY = UserInputService:GetMouseLocation().Y
+		local inset = GuiService:GetGuiInset().Y
+		local trackPos = sliderTrack.AbsolutePosition.Y + inset
 		local trackHeight = sliderTrack.AbsoluteSize.Y
 
 		local relative = math.clamp((mouseY - trackPos) / trackHeight, 0, 1)
