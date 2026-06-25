@@ -16,7 +16,7 @@ screenGui.Parent = playerGui
 local toggleButton = Instance.new("TextButton")
 toggleButton.Size = UDim2.new(0, 50, 0, 50)
 toggleButton.Position = UDim2.new(0, 20, 0.5, -25)
-toggleButton.BackgroundColor3 = Color3.fromRGB(40, 120, 255)
+toggleButton.BackgroundColor3 = Color3.fromRGB(0, 150, 136)
 toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 toggleButton.Text = "CB"
 toggleButton.TextSize = 16
@@ -30,14 +30,13 @@ toggleCorner.Parent = toggleButton
 -- Main frame
 local frame = Instance.new("Frame")
 frame.Name = "SettingsFrame"
-frame.Size = UDim2.new(0, 260, 0, 310)
-frame.Position = UDim2.new(0, 80, 0.5, -155)
-frame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+frame.Size = UDim2.new(0, 260, 0, 420)
+frame.Position = UDim2.new(0, 80, 0.5, -210)
+frame.BackgroundColor3 = Color3.fromRGB(15, 35, 40)
 frame.BorderSizePixel = 0
 frame.Visible = false
 frame.Parent = screenGui
 
--- Round main frame
 local frameCorner = Instance.new("UICorner")
 frameCorner.CornerRadius = UDim.new(0, 12)
 frameCorner.Parent = frame
@@ -45,7 +44,7 @@ frameCorner.Parent = frame
 -- Title bar
 local titleBar = Instance.new("Frame")
 titleBar.Size = UDim2.new(1, 0, 0, 50)
-titleBar.BackgroundColor3 = Color3.fromRGB(40, 120, 255)
+titleBar.BackgroundColor3 = Color3.fromRGB(0, 150, 136)
 titleBar.BorderSizePixel = 0
 titleBar.Parent = frame
 
@@ -53,7 +52,6 @@ local titleCorner = Instance.new("UICorner")
 titleCorner.CornerRadius = UDim.new(0, 12)
 titleCorner.Parent = titleBar
 
--- Title text
 local title = Instance.new("TextLabel")
 title.Size = UDim2.new(1, 0, 1, 0)
 title.BackgroundTransparency = 1
@@ -63,51 +61,69 @@ title.Font = Enum.Font.MontserratBold
 title.TextSize = 16
 title.Parent = titleBar
 
--- Subtitle
 local subtitle = Instance.new("TextLabel")
 subtitle.Size = UDim2.new(1, -20, 0, 30)
 subtitle.Position = UDim2.new(0, 10, 0, 55)
 subtitle.BackgroundTransparency = 1
-subtitle.TextColor3 = Color3.fromRGB(180, 180, 180)
+subtitle.TextColor3 = Color3.fromRGB(150, 200, 195)
 subtitle.Text = "Select a colorblind filter:"
 subtitle.Font = Enum.Font.MontserratBold
 subtitle.TextSize = 13
 subtitle.TextXAlignment = Enum.TextXAlignment.Left
 subtitle.Parent = frame
 
--- Button colors
-local buttonColors = {
-	None = Color3.fromRGB(70, 70, 80),
-	Deuteranopia = Color3.fromRGB(180, 100, 40),
-	Protanopia = Color3.fromRGB(60, 80, 180),
-	Tritanopia = Color3.fromRGB(180, 60, 80),
-}
+-- Slider panel
+local sliderPanel = Instance.new("Frame")
+sliderPanel.Size = UDim2.new(0, 160, 0, 420)
+sliderPanel.Position = UDim2.new(1, 10, 0, 0)
+sliderPanel.BackgroundColor3 = Color3.fromRGB(15, 35, 40)
+sliderPanel.BorderSizePixel = 0
+sliderPanel.Visible = false
+sliderPanel.Parent = frame
 
-local selectedMode = "None"
-local filterStrength = 1.0
-local buttons = {}
+local sliderPanelCorner = Instance.new("UICorner")
+sliderPanelCorner.CornerRadius = UDim.new(0, 12)
+sliderPanelCorner.Parent = sliderPanel
+
+-- Slider panel title bar
+local sliderTitleBar = Instance.new("Frame")
+sliderTitleBar.Size = UDim2.new(1, 0, 0, 50)
+sliderTitleBar.BackgroundColor3 = Color3.fromRGB(0, 150, 136)
+sliderTitleBar.BorderSizePixel = 0
+sliderTitleBar.Parent = sliderPanel
+
+local sliderTitleCorner = Instance.new("UICorner")
+sliderTitleCorner.CornerRadius = UDim.new(0, 12)
+sliderTitleCorner.Parent = sliderTitleBar
+
+local sliderTitle = Instance.new("TextLabel")
+sliderTitle.Size = UDim2.new(1, 0, 1, 0)
+sliderTitle.BackgroundTransparency = 1
+sliderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+sliderTitle.Text = "Strength"
+sliderTitle.Font = Enum.Font.MontserratBold
+sliderTitle.TextSize = 14
+sliderTitle.Parent = sliderTitleBar
 
 -- Slider label
 local sliderLabel = Instance.new("TextLabel")
-sliderLabel.Size = UDim2.new(1, -20, 0, 25)
-sliderLabel.Position = UDim2.new(0, 10, 0, 315)
+sliderLabel.Size = UDim2.new(1, -10, 0, 25)
+sliderLabel.Position = UDim2.new(0, 10, 0, 70)
 sliderLabel.BackgroundTransparency = 1
-sliderLabel.TextColor3 = Color3.fromRGB(180, 180, 180)
-sliderLabel.Text = "Filter Strength: 100%"
+sliderLabel.TextColor3 = Color3.fromRGB(150, 200, 195)
+sliderLabel.Text = "100%"
 sliderLabel.Font = Enum.Font.MontserratBold
-sliderLabel.TextSize = 13
-sliderLabel.TextXAlignment = Enum.TextXAlignment.Left
-sliderLabel.Visible = false
-sliderLabel.Parent = frame
+sliderLabel.TextSize = 20
+sliderLabel.TextXAlignment = Enum.TextXAlignment.Center
+sliderLabel.Parent = sliderPanel
 
 -- Slider track
 local sliderTrack = Instance.new("Frame")
-sliderTrack.Size = UDim2.new(0.88, 0, 0, 8)
-sliderTrack.Position = UDim2.new(0.06, 0, 0, 350)
-sliderTrack.BackgroundColor3 = Color3.fromRGB(70, 70, 80)
+sliderTrack.Size = UDim2.new(0, 8, 0.6, 0)
+sliderTrack.Position = UDim2.new(0.5, -4, 0, 110)
+sliderTrack.BackgroundColor3 = Color3.fromRGB(30, 70, 75)
 sliderTrack.BorderSizePixel = 0
-sliderTrack.Visible = false
-sliderTrack.Parent = frame
+sliderTrack.Parent = sliderPanel
 
 local trackCorner = Instance.new("UICorner")
 trackCorner.CornerRadius = UDim.new(1, 0)
@@ -116,7 +132,9 @@ trackCorner.Parent = sliderTrack
 -- Slider fill
 local sliderFill = Instance.new("Frame")
 sliderFill.Size = UDim2.new(1, 0, 1, 0)
-sliderFill.BackgroundColor3 = Color3.fromRGB(40, 120, 255)
+sliderFill.AnchorPoint = Vector2.new(0, 1)
+sliderFill.Position = UDim2.new(0, 0, 1, 0)
+sliderFill.BackgroundColor3 = Color3.fromRGB(0, 200, 180)
 sliderFill.BorderSizePixel = 0
 sliderFill.Parent = sliderTrack
 
@@ -127,8 +145,8 @@ fillCorner.Parent = sliderFill
 -- Slider knob
 local sliderKnob = Instance.new("TextButton")
 sliderKnob.Size = UDim2.new(0, 20, 0, 20)
-sliderKnob.Position = UDim2.new(1, -10, 0.5, -10)
-sliderKnob.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+sliderKnob.Position = UDim2.new(0.5, -10, 0, -10)
+sliderKnob.BackgroundColor3 = Color3.fromRGB(0, 200, 180)
 sliderKnob.Text = ""
 sliderKnob.BorderSizePixel = 0
 sliderKnob.Parent = sliderTrack
@@ -137,7 +155,21 @@ local knobCorner = Instance.new("UICorner")
 knobCorner.CornerRadius = UDim.new(1, 0)
 knobCorner.Parent = sliderKnob
 
-local modes = {"None", "Deuteranopia", "Protanopia", "Tritanopia"}
+-- Button colors
+local buttonColors = {
+	None = Color3.fromRGB(30, 70, 75),
+	Deuteranopia = Color3.fromRGB(180, 100, 40),
+	Protanopia = Color3.fromRGB(40, 80, 160),
+	Tritanopia = Color3.fromRGB(160, 50, 70),
+	Achromatopsia = Color3.fromRGB(60, 60, 70),
+	Anomalous = Color3.fromRGB(140, 90, 40),
+}
+
+local selectedMode = "None"
+local filterStrength = 1.0
+local buttons = {}
+
+local modes = {"None", "Deuteranopia", "Protanopia", "Tritanopia", "Achromatopsia", "Anomalous"}
 
 for i, mode in ipairs(modes) do
 	local button = Instance.new("TextButton")
@@ -160,21 +192,15 @@ for i, mode in ipairs(modes) do
 		selectedMode = mode
 		ColorblindModule.applyFilter(mode, filterStrength)
 
-		-- Show/hide slider and resize frame
 		if mode == "None" then
-			sliderLabel.Visible = false
-			sliderTrack.Visible = false
-			frame.Size = UDim2.new(0, 260, 0, 310)
+			sliderPanel.Visible = false
 		else
-			sliderLabel.Visible = true
-			sliderTrack.Visible = true
-			frame.Size = UDim2.new(0, 260, 0, 375)
+			sliderPanel.Visible = true
 		end
 
-		-- Highlight selected button
 		for m, btn in pairs(buttons) do
 			if m == mode then
-				btn.BackgroundColor3 = Color3.fromRGB(40, 120, 255)
+				btn.BackgroundColor3 = Color3.fromRGB(0, 200, 180)
 			else
 				btn.BackgroundColor3 = buttonColors[m]
 			end
@@ -182,7 +208,7 @@ for i, mode in ipairs(modes) do
 	end)
 end
 
--- Slider logic
+-- Slider logic (vertical)
 local dragging = false
 
 sliderKnob.MouseButton1Down:Connect(function()
@@ -197,16 +223,16 @@ end)
 
 game:GetService("RunService").RenderStepped:Connect(function()
 	if dragging then
-		local mouseX = game:GetService("UserInputService"):GetMouseLocation().X
-		local trackPos = sliderTrack.AbsolutePosition.X
-		local trackWidth = sliderTrack.AbsoluteSize.X
+		local mouseY = game:GetService("UserInputService"):GetMouseLocation().Y
+		local trackPos = sliderTrack.AbsolutePosition.Y
+		local trackHeight = sliderTrack.AbsoluteSize.Y
 
-		local relative = math.clamp((mouseX - trackPos) / trackWidth, 0, 1)
-		filterStrength = relative
+		local relative = math.clamp((mouseY - trackPos) / trackHeight, 0, 1)
+		filterStrength = 1 - relative
 
-		sliderFill.Size = UDim2.new(relative, 0, 1, 0)
-		sliderKnob.Position = UDim2.new(relative, -10, 0.5, -10)
-		sliderLabel.Text = "Filter Strength: " .. math.round(relative * 100) .. "%"
+		sliderFill.Size = UDim2.new(1, 0, filterStrength, 0)
+		sliderKnob.Position = UDim2.new(0.5, -10, relative, -10)
+		sliderLabel.Text = math.round(filterStrength * 100) .. "%"
 
 		if selectedMode ~= "None" then
 			ColorblindModule.applyFilter(selectedMode, filterStrength)
@@ -219,4 +245,7 @@ local panelOpen = false
 toggleButton.MouseButton1Click:Connect(function()
 	panelOpen = not panelOpen
 	frame.Visible = panelOpen
+	if not panelOpen then
+		sliderPanel.Visible = false
+	end
 end)
