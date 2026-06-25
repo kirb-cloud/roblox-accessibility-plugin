@@ -1,6 +1,5 @@
 local ColorblindModule = {}
 
--- Color correction settings for each colorblind type
 local presets = {
 	None = {
 		TintColor = Color3.fromRGB(255, 255, 255),
@@ -8,19 +7,19 @@ local presets = {
 		Saturation = 0,
 		Brightness = 0
 	},
-	Deuteranopia = { -- red-green (most common)
+	Deuteranopia = {
 		TintColor = Color3.fromRGB(255, 230, 180),
 		Contrast = 0.1,
 		Saturation = -0.5,
 		Brightness = 0.05
 	},
-	Protanopia = { -- red deficiency
+	Protanopia = {
 		TintColor = Color3.fromRGB(220, 220, 255),
 		Contrast = 0.1,
 		Saturation = -0.4,
 		Brightness = 0.05
 	},
-	Tritanopia = { -- blue-yellow
+	Tritanopia = {
 		TintColor = Color3.fromRGB(255, 220, 220),
 		Contrast = 0.05,
 		Saturation = -0.3,
@@ -28,21 +27,24 @@ local presets = {
 	}
 }
 
-function ColorblindModule.applyFilter(filterName)
+function ColorblindModule.applyFilter(filterName, strength)
 	local lighting = game:GetService("Lighting")
-	
-	-- Remove existing filter if any
+	strength = strength or 1.0
+
+	-- Remove existing filter
 	local existing = lighting:FindFirstChild("AccessibilityFilter")
 	if existing then existing:Destroy() end
 
-	-- Apply new filter
 	if filterName ~= "None" then
+		local preset = presets[filterName]
 		local correction = Instance.new("ColorCorrectionEffect")
 		correction.Name = "AccessibilityFilter"
-		correction.TintColor = presets[filterName].TintColor
-		correction.Contrast = presets[filterName].Contrast
-		correction.Saturation = presets[filterName].Saturation
-		correction.Brightness = presets[filterName].Brightness
+
+		-- Blend between no effect and full effect based on strength
+		correction.TintColor = preset.TintColor:Lerp(Color3.fromRGB(255, 255, 255), 1 - strength)
+		correction.Contrast = preset.Contrast * strength
+		correction.Saturation = preset.Saturation * strength
+		correction.Brightness = preset.Brightness * strength
 		correction.Parent = lighting
 	end
 end
