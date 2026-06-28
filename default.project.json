@@ -2,70 +2,37 @@
   "name": "roblox-accessibility-plugin",
   "tree": {
     "$className": "DataModel",
-
     "ReplicatedStorage": {
-      "Shared": {
-        "$path": "src/shared"
+      "$className": "ReplicatedStorage",
+      "AccessibilityModule": {
+        "$className": "Folder",
+        "ColorblindModule": {
+          "$path": "src/ColorblindModule.lua"
+        }
       }
     },
-
-    "ServerScriptService": {
-      "Server": {
-        "$path": "src/server"
-      }
-    },
-
     "StarterPlayer": {
+      "$className": "StarterPlayer",
       "StarterPlayerScripts": {
-        "Client": {
-          "$path": "src/client"
+        "$className": "StarterPlayerScripts",
+        "AccessibilityClient": {
+          "$path": "src/AccessibilityClient.lua"
         }
       }
     },
-
-    "Workspace": {
-      "$properties": {
-        "FilteringEnabled": true
-      },
-      "Baseplate": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Color": [
-            0.38823,
-            0.37254,
-            0.38823
-          ],
-          "Locked": true,
-          "Position": [
-            0,
-            -10,
-            0
-          ],
-          "Size": [
-            512,
-            20,
-            512
-          ]
+    "StarterGui": {
+      "$className": "StarterGui",
+      "AccessibilityMenu": {
+        "$className": "ScreenGui",
+        "SettingsFrame": {
+          "$className": "Frame"
         }
       }
     },
-    "Lighting": {
-      "$properties": {
-        "Ambient": [
-          0,
-          0,
-          0
-        ],
-        "Brightness": 2,
-        "GlobalShadows": true,
-        "Outlines": false,
-        "Technology": "Voxel"
-      }
-    },
-    "SoundService": {
-      "$properties": {
-        "RespectFilteringEnabled": true
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "DataManager": {
+        "$path": "src/DataManager.lua"
       }
     }
   }

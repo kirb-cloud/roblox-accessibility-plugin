@@ -9,6 +9,11 @@ local ColorblindModule = require(ReplicatedStorage.AccessibilityModule.Colorblin
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
+-- Wait for saved data from server
+local colorblindData = player:WaitForChild("ColorblindData")
+local savedMode = colorblindData:WaitForChild("Mode")
+local savedStrength = colorblindData:WaitForChild("Strength")
+
 -- Create the settings menu
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "AccessibilityMenu"
@@ -170,8 +175,8 @@ local buttonColors = {
 	Anomalous = Color3.fromRGB(140, 90, 40),
 }
 
-local selectedMode = "None"
-local filterStrength = 1.0
+local selectedMode = savedMode.Value
+local filterStrength = savedStrength.Value
 local buttons = {}
 
 local modes = {"None", "Deuteranopia", "Protanopia", "Tritanopia", "Achromatopsia", "Anomalous"}
@@ -195,7 +200,12 @@ for i, mode in ipairs(modes) do
 
 	button.MouseButton1Click:Connect(function()
 		selectedMode = mode
+		filterStrength = filterStrength
 		ColorblindModule.applyFilter(mode, filterStrength)
+
+		-- Save to server
+		savedMode.Value = mode
+		savedStrength.Value = filterStrength
 
 		if mode == "None" then
 			sliderPanel.Visible = false
@@ -211,6 +221,18 @@ for i, mode in ipairs(modes) do
 			end
 		end
 	end)
+end
+
+-- Apply saved filter on load
+if selectedMode ~= "None" then
+	ColorblindModule.applyFilter(selectedMode, filterStrength)
+	sliderPanel.Visible = true
+	sliderLabel.Text = math.round(filterStrength * 100) .. "%"
+	sliderFill.Size = UDim2.new(1, 0, filterStrength, 0)
+	sliderKnob.Position = UDim2.new(0.5, -10, 1 - filterStrength, -10)
+	if buttons[selectedMode] then
+		buttons[selectedMode].BackgroundColor3 = Color3.fromRGB(0, 200, 180)
+	end
 end
 
 -- Slider logic
@@ -245,6 +267,9 @@ RunService.RenderStepped:Connect(function()
 		sliderFill.Size = UDim2.new(1, 0, filterStrength, 0)
 		sliderKnob.Position = UDim2.new(0.5, -10, relative, -10)
 		sliderLabel.Text = math.round(filterStrength * 100) .. "%"
+
+		-- Save strength to server
+		savedStrength.Value = filterStrength
 
 		if selectedMode ~= "None" then
 			ColorblindModule.applyFilter(selectedMode, filterStrength)
