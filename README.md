@@ -1,7 +1,5 @@
 # CB Filter — Colorblind Accessibility Module for Roblox
-
 A Roblox in-experience accessibility module that applies colorblind simulation filters to help players with color vision deficiencies enjoy games more comfortably.
-
 ---
 
 ## Motivation
@@ -10,7 +8,6 @@ I built this project to make gaming more accessible, productive, and enjoyable f
 
 CB Filter aims to lower that barrier by giving any Roblox developer a ready-made accessibility module they can drop into their game with minimal setup, so players who need colorblind support do not have to go without it.
 
----
 
 ## Features
 
@@ -26,7 +23,6 @@ CB Filter aims to lower that barrier by giving any Roblox developer a ready-made
 - Clean, semi-transparent dark teal UI with rounded corners
 - Toggle menu via a CB button on the left side of the screen
 
----
 
 ## How to Install
 
@@ -37,7 +33,6 @@ CB Filter aims to lower that barrier by giving any Roblox developer a ready-made
 5. Enable API Services under File > Game Settings > Security
 6. Publish your game and play
 
----
 
 ## How to Use
 
@@ -47,7 +42,7 @@ CB Filter aims to lower that barrier by giving any Roblox developer a ready-made
 4. Use the Strength slider to adjust the intensity
 5. Your settings will be remembered on respawn
 
----
+
 
 ## How It Works
 
@@ -177,7 +172,7 @@ Players.PlayerRemoving:Connect(saveData)
 
 ---
 
-## The Science Behind It
+## Research
 
 Color blindness affects approximately 8% of men and 0.5% of women worldwide. It is caused by missing or malfunctioning cone cells in the eye that detect red, green, or blue light.
 
@@ -191,8 +186,6 @@ The color values are inspired by research from:
 - Brettel, Vienot and Mollon (1997) — Computerized simulation of color appearance for dichromats
 - Vienot, Brettel and Mollon (1999) — Digital video colourmaps for checking the legibility of displays by dichromats
 - Machado, Oliveira and Fernandes (2009) — A Physiologically-based Model for Simulation of Color Vision Deficiency
-
----
 
 ## Known Limitations and Future Work
 
@@ -210,8 +203,6 @@ The color values are inspired by research from:
 - Add texture pattern overlays as a secondary accessibility layer so color is not the only visual signal
 - Publish to the Roblox Creator Marketplace for wider adoption
 
----
-
 ## References
 
 - Brettel, H., Vienot, F., and Mollon, J. D. (1997). Computerized simulation of color appearance for dichromats. Journal of the Optical Society of America A, 14(10), 2647-2655.
@@ -222,4 +213,4 @@ The color values are inspired by research from:
 
 ## Author
 
-Made by kirb-cloud (https://github.com/kirb-cloud) as a CS accessibility project.
+Made by Mishka M. (https://github.com/kirb-cloud) as a video game accessibility project.
