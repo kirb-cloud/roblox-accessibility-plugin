@@ -1,13 +1,11 @@
 # CB Filter — Colorblind Accessibility Module for Roblox
 A Roblox in-experience accessibility module that applies colorblind simulation filters to help players with color vision deficiencies enjoy games more comfortably.
----
 
 ## Motivation
 
 I built this project to make gaming more accessible, productive, and enjoyable for players with color vision deficiencies. This was heavily motivated by my own experience as a Roblox player — I love the platform, but game creators often do not include accessibility settings, partly because Roblox Studio's built-in tools make it difficult to implement them without significant time and technical knowledge.
 
 CB Filter aims to lower that barrier by giving any Roblox developer a ready-made accessibility module they can drop into their game with minimal setup, so players who need colorblind support do not have to go without it.
-
 
 ## Features
 
@@ -23,7 +21,6 @@ CB Filter aims to lower that barrier by giving any Roblox developer a ready-made
 - Clean, semi-transparent dark teal UI with rounded corners
 - Toggle menu via a CB button on the left side of the screen
 
-
 ## How to Install
 
 1. Open Roblox Studio
@@ -33,7 +30,6 @@ CB Filter aims to lower that barrier by giving any Roblox developer a ready-made
 5. Enable API Services under File > Game Settings > Security
 6. Publish your game and play
 
-
 ## How to Use
 
 1. Join the game
@@ -41,8 +37,6 @@ CB Filter aims to lower that barrier by giving any Roblox developer a ready-made
 3. Select a colorblind filter from the menu
 4. Use the Strength slider to adjust the intensity
 5. Your settings will be remembered on respawn
-
-
 
 ## How It Works
 
@@ -169,9 +163,6 @@ end
 Players.PlayerAdded:Connect(loadData)
 Players.PlayerRemoving:Connect(saveData)
 ```
-
----
-
 ## Research
 
 Color blindness affects approximately 8% of men and 0.5% of women worldwide. It is caused by missing or malfunctioning cone cells in the eye that detect red, green, or blue light.
@@ -208,8 +199,6 @@ The color values are inspired by research from:
 - Brettel, H., Vienot, F., and Mollon, J. D. (1997). Computerized simulation of color appearance for dichromats. Journal of the Optical Society of America A, 14(10), 2647-2655.
 - Machado, G. M., Oliveira, M. M., and Fernandes, L. A. (2009). A physiologically-based model for simulation of color vision deficiency. IEEE Transactions on Visualization and Computer Graphics, 15(6), 1291-1298.
 - Coblis Color Blindness Simulator: https://www.color-blindness.com/coblis-color-blindness-simulator/
-
----
 
 ## Author
 
